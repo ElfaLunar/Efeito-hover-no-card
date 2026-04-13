@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    user-select: none; /* Evita seleção de texto indesejada durante o hover */
+    user-select: none;
 }
 
 body {
@@ -34,8 +34,8 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 420px;
-    height: 420px;
+    width: 340px;
+    height: 340px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -114,11 +114,11 @@ body {
     }
 }
 
-/* Grupo das três cartas - será transformado como um todo no hover */
+/* Grupo das três cartas - tamanho reduzido */
 .cards-group {
     position: relative;
-    width: 280px;
-    height: 400px;
+    width: 200px;
+    height: 290px;
     transform-style: preserve-3d;
     transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     transform: translateZ(0) rotateX(6deg) rotateY(0deg);
@@ -132,8 +132,8 @@ body {
     height: 100%;
     background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(2px);
-    border-radius: 18px;
-    box-shadow: 0 25px 35px -12px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,215,0,0.2) inset, 0 0 0 2px rgba(255,255,200,0.3) inset;
+    border-radius: 14px;
+    box-shadow: 0 20px 30px -10px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,215,0,0.2) inset, 0 0 0 2px rgba(255,255,200,0.3) inset;
     cursor: pointer;
     transition: all 0.4s ease;
     transform-style: preserve-3d;
@@ -142,7 +142,7 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 1.8rem;
+    padding: 1.2rem;
     font-weight: 500;
     color: #2c1810;
     font-family: 'Segoe UI', 'Georgia', serif;
@@ -160,27 +160,27 @@ body {
     width: 100%;
     height: 100%;
     background: repeating-linear-gradient(45deg, rgba(200,170,120,0.05) 0px, rgba(200,170,120,0.05) 2px, transparent 2px, transparent 8px);
-    border-radius: 18px;
+    border-radius: 14px;
     pointer-events: none;
 }
 
-/* Estilos para o conteúdo textual dentro das cartas */
+/* Estilos para o conteúdo textual dentro das cartas - ajustado para tamanho menor */
 .card h3 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    margin-bottom: 0.7rem;
     font-family: 'Times New Roman', serif;
     letter-spacing: 1px;
     background: linear-gradient(135deg, #b45f2b, #5e2a0c);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
-    text-shadow: 2px 2px 6px rgba(0,0,0,0.05);
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.05);
 }
 
 .card p {
-    font-size: 0.95rem;
-    line-height: 1.4;
-    margin-top: 10px;
+    font-size: 0.75rem;
+    line-height: 1.3;
+    margin-top: 6px;
     color: #3e2a1f;
     font-weight: 400;
     max-width: 90%;
@@ -188,47 +188,47 @@ body {
 
 .card .book-title {
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 0.9rem;
     color: #b45f1b;
-    margin-top: 12px;
+    margin-top: 8px;
     border-top: 1px dashed #e0b07f;
-    padding-top: 10px;
+    padding-top: 7px;
     width: 100%;
 }
 
 .card .author {
-    font-size: 0.75rem;
-    margin-top: 8px;
+    font-size: 0.65rem;
+    margin-top: 5px;
     font-style: italic;
     opacity: 0.8;
 }
 
 /* Ícone decorativo simples */
 .card-icon {
-    font-size: 2.8rem;
-    margin-bottom: 8px;
+    font-size: 2rem;
+    margin-bottom: 5px;
     opacity: 0.7;
 }
 
 /* Posicionamento 3D das cartas empilhadas (horizontal/deitadas empilhadas) */
 /* Carta 1 (base / mais atrás) */
 .card-1 {
-    transform: translateZ(-22px) translateY(12px) rotateX(2deg) rotateZ(-1deg);
+    transform: translateZ(-18px) translateY(10px) rotateX(2deg) rotateZ(-1deg);
     filter: brightness(0.92);
     z-index: 1;
 }
 /* Carta 2 (meio) */
 .card-2 {
-    transform: translateZ(4px) translateY(-4px) rotateX(0deg) rotateZ(0.8deg);
+    transform: translateZ(3px) translateY(-3px) rotateX(0deg) rotateZ(0.8deg);
     z-index: 2;
     background: rgba(255, 250, 240, 0.96);
 }
 /* Carta 3 (topo / mais visível) */
 .card-3 {
-    transform: translateZ(30px) translateY(-18px) rotateX(-1deg) rotateZ(-0.5deg);
+    transform: translateZ(24px) translateY(-14px) rotateX(-1deg) rotateZ(-0.5deg);
     z-index: 3;
     background: rgba(255, 248, 235, 0.98);
-    box-shadow: 0 28px 40px -12px black;
+    box-shadow: 0 22px 35px -10px black;
 }
 
 /* EFEITO HOVER: as três cartas saem do empilhamento e ficam lado a lado horizontalmente */
@@ -237,28 +237,27 @@ body {
 }
 
 .cards-group:hover .card {
-    /* Transição suave para o novo layout lado a lado */
     transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.5, 1.2), box-shadow 0.4s, background 0.3s;
 }
 
 /* Quando o grupo está em hover, cada carta assume uma posição horizontal lado a lado */
 .cards-group:hover .card-1 {
-    transform: translateX(-105%) translateZ(50px) translateY(-20px) rotateY(6deg) rotateX(4deg);
+    transform: translateX(-115%) translateZ(45px) translateY(-15px) rotateY(6deg) rotateX(4deg);
     z-index: 5;
     background: rgba(255, 255, 245, 0.98);
-    box-shadow: 0 30px 35px -12px rgba(0,0,0,0.4);
+    box-shadow: 0 25px 30px -10px rgba(0,0,0,0.4);
 }
 .cards-group:hover .card-2 {
-    transform: translateX(0%) translateZ(70px) translateY(-25px) rotateY(0deg) rotateX(2deg);
+    transform: translateX(0%) translateZ(60px) translateY(-20px) rotateY(0deg) rotateX(2deg);
     z-index: 6;
     background: rgba(255, 252, 245, 1);
-    box-shadow: 0 35px 45px -12px black;
+    box-shadow: 0 30px 40px -12px black;
 }
 .cards-group:hover .card-3 {
-    transform: translateX(105%) translateZ(50px) translateY(-20px) rotateY(-6deg) rotateX(4deg);
+    transform: translateX(115%) translateZ(45px) translateY(-15px) rotateY(-6deg) rotateX(4deg);
     z-index: 5;
     background: rgba(255, 255, 248, 0.98);
-    box-shadow: 0 30px 40px -12px rgba(0,0,0,0.4);
+    box-shadow: 0 25px 30px -10px rgba(0,0,0,0.4);
 }
 
 /* Ao passar o mouse, o círculo também reage expandindo sutilmente */
@@ -292,62 +291,52 @@ body {
     pointer-events: none;
 }
 
-/* Responsividade: se a tela for muito pequena, ajustamos o tamanho das cartas e do círculo */
+/* Responsividade para telas médias */
 @media (max-width: 800px) {
-    .cards-group {
-        width: 230px;
-        height: 330px;
-    }
-    .card h3 {
-        font-size: 1.4rem;
-    }
-    .card p {
-        font-size: 0.8rem;
-    }
-    .card .book-title {
-        font-size: 1rem;
-    }
     .circle-wrapper {
-        width: 340px;
-        height: 340px;
+        width: 300px;
+        height: 300px;
     }
     .cards-group:hover .card-1 {
-        transform: translateX(-90%) translateZ(40px) translateY(-15px);
+        transform: translateX(-105%) translateZ(35px) translateY(-12px);
     }
     .cards-group:hover .card-3 {
-        transform: translateX(90%) translateZ(40px) translateY(-15px);
+        transform: translateX(105%) translateZ(35px) translateY(-12px);
     }
 }
 
 @media (max-width: 560px) {
     .cards-group {
-        width: 200px;
-        height: 290px;
+        width: 170px;
+        height: 250px;
     }
     .card h3 {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
     .card p {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
     }
     .card .book-title {
-        font-size: 0.85rem;
+        font-size: 0.75rem;
     }
     .card-icon {
-        font-size: 2rem;
+        font-size: 1.6rem;
+    }
+    .card .author {
+        font-size: 0.55rem;
     }
     .circle-wrapper {
-        width: 280px;
-        height: 280px;
+        width: 260px;
+        height: 260px;
     }
     .cards-group:hover .card-1 {
-        transform: translateX(-75%) translateZ(30px) translateY(-10px) scale(0.9);
+        transform: translateX(-90%) translateZ(25px) translateY(-8px) scale(0.9);
     }
     .cards-group:hover .card-3 {
-        transform: translateX(75%) translateZ(30px) translateY(-10px) scale(0.9);
+        transform: translateX(90%) translateZ(25px) translateY(-8px) scale(0.9);
     }
     .cards-group:hover .card-2 {
-        transform: translateX(0%) translateZ(55px) translateY(-15px) scale(0.95);
+        transform: translateX(0%) translateZ(45px) translateY(-12px) scale(0.95);
     }
     .instruction {
         font-size: 0.7rem;
@@ -360,7 +349,7 @@ body {
     transition-timing-function: cubic-bezier(0.2, 0.8, 0.4, 1);
 }
 
-/* Estilo de foco suave para navegação por teclado (opcional) */
+/* Estilo de foco suave para navegação por teclado */
 .cards-group:focus-visible .card {
     outline: 2px solid orange;
 }
