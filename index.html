@@ -8,42 +8,48 @@
 </head>
 <body>
     <div class="scene">
-        <!-- Círculo laranja envolvendo as cartas (como um anel/moldura) -->
+        <!-- Círculo laranja envolvendo as cartas -->
         <div class="circle-wrapper">
             <div class="orange-circle-ring"></div>
         </div>
 
-        <!-- Grupo de cartas empilhadas 3D (inicialmente deitadas horizontalmente empilhadas) -->
-        <div class="cards-group" tabindex="0" aria-label="Três cartas de livros, passe o mouse para espalhar">
+        <!-- Grupo de cartas empilhadas 3D inclinadas -->
+        <div class="cards-group" tabindex="0" aria-label="Três cartas de livros, passe o mouse para revelar">
             <!-- Carta 1: Livro "Quarta Asa" -->
             <div class="card card-1">
                 <div class="card-icon">📘✨</div>
-                <h3>Asas de Fogo</h3>
-                <p>Um mundo de dragões, lealdade e perigo.</p>
-                <div class="book-title">📖 Quarta Asa</div>
-                <p class="author">Rebecca Yarros</p>
+                <div class="card-content">
+                    <h3>Asas de Fogo</h3>
+                    <p>Um mundo de dragões, lealdade e perigo. Onde voar é sobreviver.</p>
+                    <div class="book-title">📖 Quarta Asa</div>
+                    <p class="author">Rebecca Yarros</p>
+                </div>
             </div>
 
             <!-- Carta 2: Livro "Era uma vez um coração partido" -->
             <div class="card card-2">
                 <div class="card-icon">💔📖</div>
-                <h3>Lágrimas & Fábulas</h3>
-                <p>Reescrevendo contos de fadas com mágoas reais.</p>
-                <div class="book-title">💔 Era uma vez um coração partido</div>
-                <p class="author">Stephanie Garber</p>
+                <div class="card-content">
+                    <h3>Lágrimas & Fábulas</h3>
+                    <p>Reescrevendo contos de fadas com mágoas reais.</p>
+                    <div class="book-title">💔 Era uma vez um coração partido</div>
+                    <p class="author">Stephanie Garber</p>
+                </div>
             </div>
 
             <!-- Carta 3: Livro "Apostando no Amor" -->
             <div class="card card-3">
                 <div class="card-icon">🎲❤️</div>
-                <h3>Paixão & Apostas</h3>
-                <p>O risco mais ousado: jogar tudo por amor.</p>
-                <div class="book-title">🎲 Apostando no Amor</div>
-                <p class="author">Lynn Painter</p>
+                <div class="card-content">
+                    <h3>Paixão & Apostas</h3>
+                    <p>O risco mais ousado: jogar tudo por amor.</p>
+                    <div class="book-title">🎲 Apostando no Amor</div>
+                    <p class="author">Lynn Painter</p>
+                </div>
             </div>
         </div>
         
-        <div class="instruction">🃏 passe o mouse sobre as cartas → elas se espalham lado a lado ✨</div>
+        <div class="instruction">🃏 passe o mouse sobre as cartas → textos aparecem e cartas se espalham ✨</div>
     </div>
 
     <script src="script.js"></script>
