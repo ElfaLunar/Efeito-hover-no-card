@@ -1,5 +1,5 @@
 (function() {
-    // Para dispositivos com toque, adicionamos classe tátil que permite o hover via clique/toque
+    // Para dispositivos com toque, simula o hover
     const cardsGroup = document.querySelector('.cards-group');
     const circleRing = document.querySelector('.orange-circle-ring');
     
@@ -14,7 +14,7 @@
             touchTimeout = setTimeout(() => {
                 cardsGroup.classList.remove('force-hover');
                 if (circleRing) circleRing.classList.remove('circle-active');
-            }, 1500);
+            }, 2000);
         });
         
         cardsGroup.addEventListener('mouseleave', () => {
@@ -30,22 +30,26 @@
         const style = document.createElement('style');
         style.textContent = `
             .cards-group.force-hover {
-                transform: translateZ(40px) rotateX(0deg) rotateY(0deg) scale(0.98);
+                transform: translateZ(40px) rotateX(5deg) rotateY(0deg) scale(0.98) !important;
             }
             .cards-group.force-hover .card-1 {
-                transform: translateX(-115%) translateZ(45px) translateY(-15px) rotateY(6deg) rotateX(4deg) !important;
+                transform: translateX(-115%) translateZ(45px) translateY(-15px) rotateY(8deg) rotateX(2deg) !important;
                 z-index: 5;
-                background: rgba(255, 255, 245, 0.98);
             }
             .cards-group.force-hover .card-2 {
-                transform: translateX(0%) translateZ(60px) translateY(-20px) rotateY(0deg) rotateX(2deg) !important;
+                transform: translateX(0%) translateZ(60px) translateY(-20px) rotateY(0deg) rotateX(0deg) !important;
                 z-index: 6;
-                background: rgba(255, 252, 245, 1);
             }
             .cards-group.force-hover .card-3 {
-                transform: translateX(115%) translateZ(45px) translateY(-15px) rotateY(-6deg) rotateX(4deg) !important;
+                transform: translateX(115%) translateZ(45px) translateY(-15px) rotateY(-8deg) rotateX(2deg) !important;
                 z-index: 5;
-                background: rgba(255, 255, 248, 0.98);
+            }
+            .cards-group.force-hover .card .card-content {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+            }
+            .cards-group.force-hover .card .card-icon {
+                opacity: 0.4 !important;
             }
             .orange-circle-ring.circle-active {
                 animation: pulseRing 0.6s ease infinite alternate !important;
@@ -95,11 +99,12 @@
         });
     }
 
-    // Adiciona efeito de clique suave nas cartas
+    // Efeito de clique nas cartas
     const cards = document.querySelectorAll('.card');
     cards.forEach(card => {
         card.addEventListener('click', function(e) {
-            this.style.transform += ' scale(0.98)';
+            // Pequena animação de feedback
+            this.style.transform += ' scale(0.97)';
             setTimeout(() => {
                 if (this.style.transform) {
                     const parentGroup = document.querySelector('.cards-group');
@@ -123,18 +128,9 @@
                 }, 200);
             }
         });
-        
-        card.addEventListener('mouseenter', function() {
-            if (!document.querySelector('.cards-group:hover')) return;
-            this.style.transition = 'all 0.2s ease';
-            this.style.boxShadow = '0 0 15px rgba(255,160,50,0.6), 0 15px 25px -8px black';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.boxShadow = '';
-        });
     });
     
+    // Detecta dispositivos touch
     if ('ontouchstart' in window) {
         document.body.classList.add('touch-device');
     }
