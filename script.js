@@ -21,20 +21,17 @@
                 cards.forEach(c => {
                     if (c !== card && c.classList.contains('touch-active')) {
                         c.classList.remove('touch-active');
-                        // Reset do conteúdo
                         const content = c.querySelector('.card-content');
                         if (content) {
                             content.style.opacity = '';
                             content.style.transform = '';
                         }
-                        // Reset do ícone
                         const icon = c.querySelector('.card-icon');
                         if (icon) {
                             icon.style.opacity = '';
                             icon.style.fontSize = '';
                             icon.style.transform = '';
                         }
-                        // Reset da posição
                         if (c.classList.contains('card-1')) c.style.transform = '';
                         else if (c.classList.contains('card-2')) c.style.transform = '';
                         else if (c.classList.contains('card-3')) c.style.transform = '';
@@ -47,9 +44,9 @@
                 card.classList.add('touch-active');
                 
                 // Aplica o efeito de levantar
-                card.style.transform = `translateY(-25px) translateZ(20px) rotateX(0deg) scale(1.02)`;
-                card.style.zIndex = '20';
-                card.style.boxShadow = '0 30px 40px -15px rgba(0,0,0,0.6), 0 0 0 2px rgba(255, 180, 50, 0.5) inset';
+                card.style.transform = `translateY(-40px) translateZ(30px) rotateX(0deg) rotateY(0deg) scale(1.05)`;
+                card.style.zIndex = '100';
+                card.style.boxShadow = '0 35px 50px -20px rgba(0,0,0,0.7), 0 0 0 2px rgba(255, 180, 50, 0.6) inset';
                 
                 // Mostra o conteúdo
                 const content = card.querySelector('.card-content');
@@ -61,16 +58,15 @@
                 // Esconde o ícone
                 const icon = card.querySelector('.card-icon');
                 if (icon) {
-                    icon.style.opacity = '0.2';
-                    icon.style.fontSize = '1.6rem';
-                    icon.style.transform = 'translateY(-8px)';
+                    icon.style.opacity = '0.15';
+                    icon.style.fontSize = '1.8rem';
+                    icon.style.transform = 'translateY(-10px)';
                 }
                 
                 // Restaura após 2 segundos
                 const timeout = setTimeout(() => {
                     card.classList.remove('touch-active');
                     
-                    // Restaura a posição original
                     if (card.classList.contains('card-1')) card.style.transform = '';
                     else if (card.classList.contains('card-2')) card.style.transform = '';
                     else if (card.classList.contains('card-3')) card.style.transform = '';
@@ -152,19 +148,19 @@
         
         const style = document.createElement('style');
         style.textContent = `
-            .cards-group.force-hover { transform: translateZ(20px) rotateX(78deg) rotateY(-2deg) scale(0.97) !important; }
-            .cards-group.force-hover .card-1 { transform: translateX(-115%) translateZ(35px) translateY(8px) rotateY(12deg) rotateX(2deg) !important; z-index: 5; }
-            .cards-group.force-hover .card-2 { transform: translateX(0%) translateZ(50px) translateY(3px) rotateY(0deg) rotateX(0deg) !important; z-index: 6; }
-            .cards-group.force-hover .card-3 { transform: translateX(115%) translateZ(35px) translateY(8px) rotateY(-12deg) rotateX(2deg) !important; z-index: 5; }
+            .cards-group.force-hover { transform: translateZ(15px) rotateX(2deg) rotateY(-3deg) scale(0.98) !important; }
+            .cards-group.force-hover .card-1 { transform: translateX(-120%) translateZ(20px) translateY(0px) rotateY(12deg) !important; z-index: 5; }
+            .cards-group.force-hover .card-2 { transform: translateX(0%) translateZ(35px) translateY(0px) rotateY(0deg) !important; z-index: 6; }
+            .cards-group.force-hover .card-3 { transform: translateX(120%) translateZ(20px) translateY(0px) rotateY(-12deg) !important; z-index: 5; }
             .orange-circle-ring.circle-active { animation: pulseRing 0.6s ease infinite alternate !important; box-shadow: 0 0 0 18px rgba(255, 140, 0, 0.9), 0 0 0 30px rgba(255, 120, 0, 0.5), 0 0 90px 40px rgba(255, 100, 0, 0.8), inset 0 0 50px 20px rgba(255, 120, 0, 0.5) !important; }
             @media (max-width: 800px) {
-                .cards-group.force-hover .card-1 { transform: translateX(-110%) translateZ(30px) !important; }
-                .cards-group.force-hover .card-3 { transform: translateX(110%) translateZ(30px) !important; }
+                .cards-group.force-hover .card-1 { transform: translateX(-115%) translateZ(15px) !important; }
+                .cards-group.force-hover .card-3 { transform: translateX(115%) translateZ(15px) !important; }
             }
             @media (max-width: 560px) {
-                .cards-group.force-hover .card-1 { transform: translateX(-95%) translateZ(20px) scale(0.92) !important; }
-                .cards-group.force-hover .card-3 { transform: translateX(95%) translateZ(20px) scale(0.92) !important; }
-                .cards-group.force-hover .card-2 { transform: translateX(0%) translateZ(35px) scale(0.96) !important; }
+                .cards-group.force-hover .card-1 { transform: translateX(-100%) translateZ(15px) scale(0.92) !important; }
+                .cards-group.force-hover .card-3 { transform: translateX(100%) translateZ(15px) scale(0.92) !important; }
+                .cards-group.force-hover .card-2 { transform: translateX(0%) translateZ(25px) scale(0.96) !important; }
             }
         `;
         document.head.appendChild(style);
@@ -189,7 +185,7 @@
         });
     }
     
-    // Clique nas cartas - feedback
+    // Clique nas cartas
     cards.forEach(card => {
         card.addEventListener('click', function(e) {
             const bookTitle = this.querySelector('.book-title')?.innerText || 'Livro';
