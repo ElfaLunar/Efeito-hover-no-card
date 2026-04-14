@@ -3,19 +3,21 @@
     const circleRing = document.querySelector('.orange-circle-ring');
     const cards = document.querySelectorAll('.card');
     
-    // Suporte para touch
+    // Suporte para dispositivos touch
     if (cards.length > 0) {
         let touchTimeouts = new Map();
         
         cards.forEach(card => {
             card.addEventListener('touchstart', (e) => {
                 e.stopPropagation();
+                e.preventDefault();
                 
                 if (touchTimeouts.has(card)) {
                     clearTimeout(touchTimeouts.get(card));
                     touchTimeouts.delete(card);
                 }
                 
+                // Remove estado de outros cards
                 cards.forEach(c => {
                     if (c !== card && c.classList.contains('touch-active')) {
                         c.classList.remove('touch-active');
@@ -24,21 +26,54 @@
                             content.style.opacity = '';
                             content.style.transform = '';
                         }
+                        // Reset da posição
+                        if (c.classList.contains('card-1')) c.style.transform = '';
+                        else if (c.classList.contains('card-2')) c.style.transform = '';
+                        else if (c.classList.contains('card-3')) c.style.transform = '';
                     }
                 });
                 
+                // Ativa o card tocado
                 card.classList.add('touch-active');
+                
+                // Aplica o efeito de levantar via estilo inline
+                card.style.transform = `translateY(-25px) translateZ(20px) rotateX(0deg) scale(1.02)`;
+                card.style.zIndex = '20';
+                card.style.boxShadow = '0 30px 40px -15px rgba(0,0,0,0.6), 0 0 0 2px rgba(255, 180, 50, 0.5) inset';
+                
                 const content = card.querySelector('.card-content');
                 if (content) {
                     content.style.opacity = '1';
                     content.style.transform = 'translateY(0)';
                 }
                 
+                const icon = card.querySelector('.card-icon');
+                if (icon) {
+                    icon.style.opacity = '0.2';
+                    icon.style.fontSize = '1.6rem';
+                    icon.style.transform = 'translateY(-8px)';
+                }
+                
+                // Restaura após 2 segundos
                 const timeout = setTimeout(() => {
                     card.classList.remove('touch-active');
+                    
+                    // Restaura a posição original baseada na classe
+                    if (card.classList.contains('card-1')) card.style.transform = '';
+                    else if (card.classList.contains('card-2')) card.style.transform = '';
+                    else if (card.classList.contains('card-3')) card.style.transform = '';
+                    
+                    card.style.zIndex = '';
+                    card.style.boxShadow = '';
+                    
                     if (content) {
                         content.style.opacity = '';
                         content.style.transform = '';
+                    }
+                    if (icon) {
+                        icon.style.opacity = '';
+                        icon.style.fontSize = '';
+                        icon.style.transform = '';
                     }
                     touchTimeouts.delete(card);
                 }, 2000);
@@ -47,15 +82,30 @@
             });
         });
         
+        // Limpa ao tocar fora
         document.addEventListener('touchstart', (e) => {
             if (!e.target.closest('.card')) {
                 cards.forEach(card => {
                     if (card.classList.contains('touch-active')) {
                         card.classList.remove('touch-active');
+                        
+                        if (card.classList.contains('card-1')) card.style.transform = '';
+                        else if (card.classList.contains('card-2')) card.style.transform = '';
+                        else if (card.classList.contains('card-3')) card.style.transform = '';
+                        
+                        card.style.zIndex = '';
+                        card.style.boxShadow = '';
+                        
                         const content = card.querySelector('.card-content');
                         if (content) {
                             content.style.opacity = '';
                             content.style.transform = '';
+                        }
+                        const icon = card.querySelector('.card-icon');
+                        if (icon) {
+                            icon.style.opacity = '';
+                            icon.style.fontSize = '';
+                            icon.style.transform = '';
                         }
                     }
                     if (touchTimeouts.has(card)) {
@@ -65,13 +115,6 @@
                 });
             }
         });
-        
-        const touchStyle = document.createElement('style');
-        touchStyle.textContent = `
-            .card.touch-active .card-content { opacity: 1 !important; transform: translateY(0) !important; }
-            .card.touch-active .card-icon { opacity: 0.2 !important; font-size: 1.6rem !important; }
-        `;
-        document.head.appendChild(touchStyle);
     }
     
     // Hover do grupo para touch
@@ -137,21 +180,6 @@
     // Clique nas cartas
     cards.forEach(card => {
         card.addEventListener('click', function(e) {
-            this.style.transform += ' scale(0.98)';
-            setTimeout(() => {
-                if (this.style.transform) {
-                    const parentGroup = document.querySelector('.cards-group');
-                    const isHovered = parentGroup && parentGroup.matches(':hover');
-                    if (!isHovered && !this.classList.contains('touch-active')) {
-                        if (this.classList.contains('card-1')) this.style.transform = '';
-                        else if (this.classList.contains('card-2')) this.style.transform = '';
-                        else if (this.classList.contains('card-3')) this.style.transform = '';
-                    } else {
-                        this.style.transform = '';
-                    }
-                }
-            }, 150);
-            
             const bookTitle = this.querySelector('.book-title')?.innerText || 'Livro';
             console.log(`📚 Clicou em: ${bookTitle}`);
             
