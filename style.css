@@ -16,15 +16,15 @@ body {
     cursor: default;
 }
 
-/* Container principal - perspectiva 3D para o empilhamento */
+/* Container principal - perspectiva 3D */
 .scene {
     width: 100%;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    perspective: 1200px;
-    perspective-origin: 50% 45%;
+    perspective: 1000px;
+    perspective-origin: 50% 55%;
     position: relative;
 }
 
@@ -34,8 +34,8 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 340px;
-    height: 340px;
+    width: 360px;
+    height: 360px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -114,26 +114,26 @@ body {
     }
 }
 
-/* Grupo das três cartas - deitadas horizontalmente no eixo Z */
+/* Grupo das três cartas - DEITADAS COMO LIVROS (horizontalmente) */
 .cards-group {
     position: relative;
-    width: 200px;
-    height: 290px;
+    width: 280px;
+    height: 180px;
     transform-style: preserve-3d;
     transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-    transform: translateZ(0) rotateX(25deg) rotateY(-8deg) rotateZ(3deg);
+    transform: translateZ(0) rotateX(75deg) rotateY(-5deg) rotateZ(2deg);
     z-index: 10;
 }
 
-/* Cada carta individual - ainda mais deitada no eixo Z */
+/* Cada carta - parecendo um livro deitado */
 .card {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.88);
+    background: linear-gradient(135deg, rgba(255, 252, 240, 0.95), rgba(255, 245, 225, 0.95));
     backdrop-filter: blur(2px);
-    border-radius: 14px;
-    box-shadow: 0 20px 30px -10px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,215,0,0.2) inset, 0 0 0 2px rgba(255,255,200,0.3) inset;
+    border-radius: 8px;
+    box-shadow: 0 15px 25px -8px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,215,0,0.2) inset;
     cursor: pointer;
     transition: all 0.4s ease;
     transform-style: preserve-3d;
@@ -142,14 +142,26 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 1.2rem;
+    padding: 1rem;
     font-weight: 500;
     color: #2c1810;
     font-family: 'Segoe UI', 'Georgia', serif;
     will-change: transform;
-    backface-visibility: visible;
-    border: 1px solid rgba(255,245,200,0.7);
+    border: 1px solid rgba(200, 160, 100, 0.5);
     overflow: hidden;
+}
+
+/* Lombada do livro (efeito visual) */
+.card-spine {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 12px;
+    background: linear-gradient(90deg, #8B6914, #DAA520, #8B6914);
+    border-radius: 3px 0 0 3px;
+    box-shadow: inset -1px 0 2px rgba(0,0,0,0.3);
+    z-index: 2;
 }
 
 /* Esconde o conteúdo das cartas inicialmente */
@@ -174,12 +186,13 @@ body {
     opacity: 0.9;
     transition: all 0.3s ease;
     pointer-events: none;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
 }
 
-/* Ao passar o mouse, o ícone fica menor e sobe um pouco */
+/* Ao passar o mouse, o ícone fica menor e sobe */
 .card:hover .card-icon {
     opacity: 0.3;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     margin-bottom: 2px;
     transform: translateY(-5px);
 }
@@ -193,27 +206,27 @@ body {
     width: 100%;
     height: 100%;
     background: repeating-linear-gradient(45deg, rgba(200,170,120,0.05) 0px, rgba(200,170,120,0.05) 2px, transparent 2px, transparent 8px);
-    border-radius: 14px;
+    border-radius: 8px;
     pointer-events: none;
 }
 
 /* Estilos para o conteúdo textual dentro das cartas */
 .card h3 {
-    font-size: 1.3rem;
-    margin-bottom: 0.7rem;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
     font-family: 'Times New Roman', serif;
     letter-spacing: 1px;
     background: linear-gradient(135deg, #b45f2b, #5e2a0c);
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.05);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
 }
 
 .card p {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     line-height: 1.3;
-    margin-top: 6px;
+    margin-top: 4px;
     color: #3e2a1f;
     font-weight: 400;
     max-width: 90%;
@@ -221,92 +234,80 @@ body {
 
 .card .book-title {
     font-weight: bold;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #b45f1b;
-    margin-top: 8px;
+    margin-top: 6px;
     border-top: 1px dashed #e0b07f;
-    padding-top: 7px;
+    padding-top: 5px;
     width: 100%;
 }
 
 .card .author {
-    font-size: 0.65rem;
-    margin-top: 5px;
+    font-size: 0.6rem;
+    margin-top: 4px;
     font-style: italic;
     opacity: 0.8;
 }
 
-/* Posicionamento 3D das cartas empilhadas - DEITADAS no eixo Z (horizontalmente) */
-/* Carta 1 (base) - mais deitada para trás */
+/* Posicionamento 3D das cartas empilhadas - DEITADAS como livros */
+/* Carta 1 (base) - mais ao fundo */
 .card-1 {
-    transform: translateZ(-24px) translateY(14px) rotateX(12deg) rotateZ(-4deg) rotateY(3deg);
+    transform: translateZ(-16px) translateY(8px) rotateX(2deg) rotateZ(-2deg);
     filter: brightness(0.88);
     z-index: 1;
 }
-/* Carta 2 (meio) - deitada intermediária */
+/* Carta 2 (meio) */
 .card-2 {
-    transform: translateZ(-4px) translateY(2px) rotateX(8deg) rotateZ(1deg) rotateY(-2deg);
+    transform: translateZ(-4px) translateY(2px) rotateX(1deg) rotateZ(1deg);
     z-index: 2;
-    background: rgba(255, 250, 240, 0.94);
+    background: linear-gradient(135deg, rgba(255, 250, 240, 0.97), rgba(255, 248, 235, 0.97));
 }
-/* Carta 3 (topo) - menos deitada, mais visível */
+/* Carta 3 (topo) */
 .card-3 {
-    transform: translateZ(18px) translateY(-12px) rotateX(3deg) rotateZ(5deg) rotateY(1deg);
+    transform: translateZ(10px) translateY(-6px) rotateX(-1deg) rotateZ(3deg);
     z-index: 3;
-    background: rgba(255, 248, 235, 0.96);
-    box-shadow: 0 22px 35px -10px black;
+    background: linear-gradient(135deg, rgba(255, 252, 245, 0.98), rgba(255, 250, 240, 0.98));
+    box-shadow: 0 18px 28px -8px black;
 }
 
-/* Efeito ao passar o mouse em cada carta individualmente - levanta levemente */
+/* Efeito ao passar o mouse em cada carta - levanta levemente */
 .card-1:hover {
-    transform: translateZ(-18px) translateY(10px) rotateX(10deg) rotateZ(-2deg) rotateY(3deg) scale(1.02);
-    box-shadow: 0 25px 40px -12px rgba(0,0,0,0.6);
-    background: rgba(255, 255, 250, 0.98);
+    transform: translateZ(-10px) translateY(5px) rotateX(1deg) rotateZ(-1deg) scale(1.01);
+    box-shadow: 0 20px 30px -10px rgba(0,0,0,0.5);
 }
 
 .card-2:hover {
-    transform: translateZ(2px) translateY(-2px) rotateX(6deg) rotateZ(1deg) rotateY(-2deg) scale(1.02);
-    box-shadow: 0 25px 40px -12px rgba(0,0,0,0.6);
-    background: rgba(255, 255, 250, 0.98);
+    transform: translateZ(2px) translateY(0px) rotateX(0deg) rotateZ(1deg) scale(1.01);
+    box-shadow: 0 20px 30px -10px rgba(0,0,0,0.5);
 }
 
 .card-3:hover {
-    transform: translateZ(24px) translateY(-16px) rotateX(2deg) rotateZ(5deg) rotateY(1deg) scale(1.02);
-    box-shadow: 0 28px 45px -12px rgba(0,0,0,0.6);
-    background: rgba(255, 255, 250, 0.98);
+    transform: translateZ(16px) translateY(-8px) rotateX(-2deg) rotateZ(3deg) scale(1.01);
+    box-shadow: 0 22px 35px -10px rgba(0,0,0,0.5);
 }
 
 /* EFEITO HOVER DO GRUPO: as três cartas saem do empilhamento e ficam lado a lado */
 .cards-group:hover {
-    transform: translateZ(30px) rotateX(8deg) rotateY(-2deg) scale(0.97);
+    transform: translateZ(20px) rotateX(70deg) rotateY(-3deg) scale(0.98);
 }
 
 .cards-group:hover .card {
-    transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.5, 1.2), box-shadow 0.4s, background 0.3s;
+    transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.5, 1.2), box-shadow 0.4s;
 }
 
-/* Quando o grupo está em hover, cada carta assume posição lado a lado e fica mais reta */
+/* Quando o grupo está em hover, cada carta assume posição lado a lado */
 .cards-group:hover .card-1 {
-    transform: translateX(-120%) translateZ(40px) translateY(-10px) rotateY(10deg) rotateX(4deg) !important;
+    transform: translateX(-110%) translateZ(30px) translateY(5px) rotateY(12deg) rotateX(2deg) !important;
     z-index: 5;
-    background: rgba(255, 255, 245, 0.98);
-    box-shadow: 0 25px 30px -10px rgba(0,0,0,0.4);
 }
 .cards-group:hover .card-2 {
-    transform: translateX(0%) translateZ(55px) translateY(-15px) rotateY(0deg) rotateX(2deg) !important;
+    transform: translateX(0%) translateZ(45px) translateY(0px) rotateY(0deg) rotateX(0deg) !important;
     z-index: 6;
-    background: rgba(255, 252, 245, 1);
-    box-shadow: 0 30px 40px -12px black;
 }
 .cards-group:hover .card-3 {
-    transform: translateX(120%) translateZ(40px) translateY(-10px) rotateY(-10deg) rotateX(4deg) !important;
+    transform: translateX(110%) translateZ(30px) translateY(5px) rotateY(-12deg) rotateX(2deg) !important;
     z-index: 5;
-    background: rgba(255, 255, 248, 0.98);
-    box-shadow: 0 25px 30px -10px rgba(0,0,0,0.4);
 }
-
-/* Quando o grupo está em hover, mantém o comportamento individual de mostrar texto apenas no hover da carta específica */
-/* Isso significa que os textos NÃO aparecem automaticamente ao passar no grupo, apenas quando o mouse está sobre a carta específica */
 
 /* Ao passar o mouse no círculo, ele reage */
 .cards-group:hover ~ .circle-wrapper .orange-circle-ring {
@@ -342,66 +343,71 @@ body {
 /* Responsividade */
 @media (max-width: 800px) {
     .circle-wrapper {
-        width: 300px;
-        height: 300px;
+        width: 320px;
+        height: 320px;
     }
     .cards-group {
-        transform: rotateX(22deg) rotateY(-6deg);
+        width: 250px;
+        height: 160px;
+        transform: rotateX(72deg);
     }
     .cards-group:hover .card-1 {
-        transform: translateX(-110%) translateZ(35px) translateY(-8px) !important;
+        transform: translateX(-105%) translateZ(25px) !important;
     }
     .cards-group:hover .card-3 {
-        transform: translateX(110%) translateZ(35px) translateY(-8px) !important;
-    }
-    .card h3 {
-        font-size: 1.2rem;
-    }
-    .card p {
-        font-size: 0.7rem;
-    }
-    .card .book-title {
-        font-size: 0.85rem;
-    }
-}
-
-@media (max-width: 560px) {
-    .cards-group {
-        width: 170px;
-        height: 250px;
-        transform: rotateX(20deg) rotateY(-5deg);
+        transform: translateX(105%) translateZ(25px) !important;
     }
     .card h3 {
         font-size: 1rem;
     }
     .card p {
-        font-size: 0.6rem;
+        font-size: 0.65rem;
     }
     .card .book-title {
-        font-size: 0.7rem;
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 560px) {
+    .cards-group {
+        width: 220px;
+        height: 140px;
+        transform: rotateX(70deg);
+    }
+    .card h3 {
+        font-size: 0.9rem;
+    }
+    .card p {
+        font-size: 0.55rem;
+    }
+    .card .book-title {
+        font-size: 0.65rem;
     }
     .card-icon {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
     }
     .card .author {
         font-size: 0.5rem;
     }
     .circle-wrapper {
-        width: 260px;
-        height: 260px;
+        width: 270px;
+        height: 270px;
     }
     .cards-group:hover .card-1 {
-        transform: translateX(-95%) translateZ(25px) translateY(-5px) scale(0.9) !important;
+        transform: translateX(-95%) translateZ(20px) scale(0.92) !important;
     }
     .cards-group:hover .card-3 {
-        transform: translateX(95%) translateZ(25px) translateY(-5px) scale(0.9) !important;
+        transform: translateX(95%) translateZ(20px) scale(0.92) !important;
     }
     .cards-group:hover .card-2 {
-        transform: translateX(0%) translateZ(40px) translateY(-8px) scale(0.95) !important;
+        transform: translateX(0%) translateZ(35px) scale(0.96) !important;
     }
     .instruction {
         font-size: 0.65rem;
         bottom: 12px;
+    }
+    .card-spine {
+        width: 8px;
     }
 }
 
@@ -415,7 +421,8 @@ body {
     outline: 2px solid orange;
 }
 
-/* Efeito de brilho na borda ao passar o mouse na carta */
+/* Efeito de brilho na borda ao passar o mouse */
 .card:hover {
     border-color: rgba(255, 160, 50, 0.8);
+    box-shadow: 0 15px 30px -8px rgba(0,0,0,0.6), 0 0 0 1px rgba(255, 180, 50, 0.5) inset;
 }
