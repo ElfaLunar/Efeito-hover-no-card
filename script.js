@@ -17,7 +17,6 @@
                     touchTimeouts.delete(card);
                 }
                 
-                // Remove estado de outros cards
                 cards.forEach(c => {
                     if (c !== card && c.classList.contains('touch-active')) {
                         c.classList.remove('touch-active');
@@ -40,30 +39,25 @@
                     }
                 });
                 
-                // Ativa o card tocado
                 card.classList.add('touch-active');
                 
-                // Aplica o efeito de levantar
-                card.style.transform = `translateY(-40px) translateZ(30px) rotateX(0deg) rotateY(0deg) scale(1.05)`;
+                card.style.transform = `translateY(-35px) translateZ(25px) rotateX(0deg) rotateY(0deg) scale(1.03)`;
                 card.style.zIndex = '100';
                 card.style.boxShadow = '0 35px 50px -20px rgba(0,0,0,0.7), 0 0 0 2px rgba(255, 180, 50, 0.6) inset';
                 
-                // Mostra o conteúdo
                 const content = card.querySelector('.card-content');
                 if (content) {
                     content.style.opacity = '1';
                     content.style.transform = 'translateY(0)';
                 }
                 
-                // Esconde o ícone
                 const icon = card.querySelector('.card-icon');
                 if (icon) {
                     icon.style.opacity = '0.15';
-                    icon.style.fontSize = '1.8rem';
-                    icon.style.transform = 'translateY(-10px)';
+                    icon.style.fontSize = '1.6rem';
+                    icon.style.transform = 'translateY(-8px)';
                 }
                 
-                // Restaura após 2 segundos
                 const timeout = setTimeout(() => {
                     card.classList.remove('touch-active');
                     
@@ -90,7 +84,6 @@
             });
         });
         
-        // Limpa ao tocar fora
         document.addEventListener('touchstart', (e) => {
             if (!e.target.closest('.card')) {
                 cards.forEach(card => {
@@ -148,20 +141,11 @@
         
         const style = document.createElement('style');
         style.textContent = `
-            .cards-group.force-hover { transform: translateZ(15px) rotateX(2deg) rotateY(-3deg) scale(0.98) !important; }
-            .cards-group.force-hover .card-1 { transform: translateX(-120%) translateZ(20px) translateY(0px) rotateY(12deg) !important; z-index: 5; }
+            .cards-group.force-hover { transform: translateZ(15px) rotateX(2deg) rotateY(-2deg) scale(0.98) !important; }
+            .cards-group.force-hover .card-1 { transform: translateX(-115%) translateZ(20px) translateY(0px) rotateY(10deg) !important; z-index: 5; }
             .cards-group.force-hover .card-2 { transform: translateX(0%) translateZ(35px) translateY(0px) rotateY(0deg) !important; z-index: 6; }
-            .cards-group.force-hover .card-3 { transform: translateX(120%) translateZ(20px) translateY(0px) rotateY(-12deg) !important; z-index: 5; }
+            .cards-group.force-hover .card-3 { transform: translateX(115%) translateZ(20px) translateY(0px) rotateY(-10deg) !important; z-index: 5; }
             .orange-circle-ring.circle-active { animation: pulseRing 0.6s ease infinite alternate !important; box-shadow: 0 0 0 18px rgba(255, 140, 0, 0.9), 0 0 0 30px rgba(255, 120, 0, 0.5), 0 0 90px 40px rgba(255, 100, 0, 0.8), inset 0 0 50px 20px rgba(255, 120, 0, 0.5) !important; }
-            @media (max-width: 800px) {
-                .cards-group.force-hover .card-1 { transform: translateX(-115%) translateZ(15px) !important; }
-                .cards-group.force-hover .card-3 { transform: translateX(115%) translateZ(15px) !important; }
-            }
-            @media (max-width: 560px) {
-                .cards-group.force-hover .card-1 { transform: translateX(-100%) translateZ(15px) scale(0.92) !important; }
-                .cards-group.force-hover .card-3 { transform: translateX(100%) translateZ(15px) scale(0.92) !important; }
-                .cards-group.force-hover .card-2 { transform: translateX(0%) translateZ(25px) scale(0.96) !important; }
-            }
         `;
         document.head.appendChild(style);
     }
