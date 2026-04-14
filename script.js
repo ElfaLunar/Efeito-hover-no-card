@@ -6,7 +6,6 @@
     
     // Suporte para dispositivos touch - cada carta pode ser tocada individualmente
     if (cards.length > 0) {
-        let currentActiveCard = null;
         let touchTimeouts = new Map();
         
         cards.forEach(card => {
@@ -23,12 +22,16 @@
                 cards.forEach(c => {
                     if (c !== card && c.classList.contains('touch-active')) {
                         c.classList.remove('touch-active');
+                        const content = c.querySelector('.card-content');
+                        if (content) {
+                            content.style.opacity = '';
+                            content.style.transform = '';
+                        }
                     }
                 });
                 
                 // Adiciona classe active ao card tocado
                 card.classList.add('touch-active');
-                currentActiveCard = card;
                 
                 // Mostra o conteúdo via CSS
                 const content = card.querySelector('.card-content');
@@ -51,7 +54,7 @@
             });
         });
         
-        // Limpa ao tocar fora (opcional)
+        // Limpa ao tocar fora
         document.addEventListener('touchstart', (e) => {
             if (!e.target.closest('.card')) {
                 cards.forEach(card => {
@@ -80,20 +83,18 @@
             }
             .card.touch-active .card-icon {
                 opacity: 0.3 !important;
-                font-size: 1.6rem !important;
+                font-size: 1.5rem !important;
             }
         `;
         document.head.appendChild(touchStyle);
     }
     
-    // Efeito de hover no grupo - mantém o comportamento de espalhar as cartas
+    // Efeito de hover no grupo
     if (cardsGroup) {
         let groupTouchTimeout;
         
         cardsGroup.addEventListener('touchstart', (e) => {
-            // Não interfere no clique individual das cartas
             if (e.target.closest('.card')) return;
-            
             e.stopPropagation();
             cardsGroup.classList.add('force-hover');
             if (circleRing) circleRing.classList.add('circle-active');
@@ -117,18 +118,18 @@
         const style = document.createElement('style');
         style.textContent = `
             .cards-group.force-hover {
-                transform: translateZ(30px) rotateX(8deg) rotateY(-2deg) scale(0.97) !important;
+                transform: translateZ(20px) rotateX(70deg) rotateY(-3deg) scale(0.98) !important;
             }
             .cards-group.force-hover .card-1 {
-                transform: translateX(-120%) translateZ(40px) translateY(-10px) rotateY(10deg) rotateX(4deg) !important;
+                transform: translateX(-110%) translateZ(30px) translateY(5px) rotateY(12deg) rotateX(2deg) !important;
                 z-index: 5;
             }
             .cards-group.force-hover .card-2 {
-                transform: translateX(0%) translateZ(55px) translateY(-15px) rotateY(0deg) rotateX(2deg) !important;
+                transform: translateX(0%) translateZ(45px) translateY(0px) rotateY(0deg) rotateX(0deg) !important;
                 z-index: 6;
             }
             .cards-group.force-hover .card-3 {
-                transform: translateX(120%) translateZ(40px) translateY(-10px) rotateY(-10deg) rotateX(4deg) !important;
+                transform: translateX(110%) translateZ(30px) translateY(5px) rotateY(-12deg) rotateX(2deg) !important;
                 z-index: 5;
             }
             .orange-circle-ring.circle-active {
@@ -140,19 +141,19 @@
                     inset 0 0 50px 20px rgba(255, 120, 0, 0.5) !important;
             }
             @media (max-width: 800px) {
-                .cards-group.force-hover .card-1 { transform: translateX(-110%) translateZ(35px) translateY(-8px) !important; }
-                .cards-group.force-hover .card-3 { transform: translateX(110%) translateZ(35px) translateY(-8px) !important; }
+                .cards-group.force-hover .card-1 { transform: translateX(-105%) translateZ(25px) !important; }
+                .cards-group.force-hover .card-3 { transform: translateX(105%) translateZ(25px) !important; }
             }
             @media (max-width: 560px) {
-                .cards-group.force-hover .card-1 { transform: translateX(-95%) translateZ(25px) translateY(-5px) scale(0.9) !important; }
-                .cards-group.force-hover .card-3 { transform: translateX(95%) translateZ(25px) translateY(-5px) scale(0.9) !important; }
-                .cards-group.force-hover .card-2 { transform: translateX(0%) translateZ(40px) translateY(-8px) scale(0.95) !important; }
+                .cards-group.force-hover .card-1 { transform: translateX(-95%) translateZ(20px) scale(0.92) !important; }
+                .cards-group.force-hover .card-3 { transform: translateX(95%) translateZ(20px) scale(0.92) !important; }
+                .cards-group.force-hover .card-2 { transform: translateX(0%) translateZ(35px) scale(0.96) !important; }
             }
         `;
         document.head.appendChild(style);
     }
 
-    // Efeito de movimento suave no círculo acompanhando o mouse
+    // Efeito de movimento suave no círculo
     if (circleRing) {
         let mouseX = 0, mouseY = 0;
         let ringX = 0, ringY = 0;
@@ -179,18 +180,16 @@
         });
     }
 
-    // Efeito de clique nas cartas com feedback visual
+    // Efeito de clique nas cartas
     cards.forEach(card => {
         card.addEventListener('click', function(e) {
-            // Pequena animação de feedback
-            this.style.transform += ' scale(0.97)';
+            this.style.transform += ' scale(0.98)';
             setTimeout(() => {
                 if (this.style.transform) {
                     const parentGroup = document.querySelector('.cards-group');
                     const isHovered = parentGroup && parentGroup.matches(':hover');
                     
                     if (!isHovered && !this.classList.contains('touch-active')) {
-                        // Restaura o transform baseado na classe
                         if (this.classList.contains('card-1')) this.style.transform = '';
                         else if (this.classList.contains('card-2')) this.style.transform = '';
                         else if (this.classList.contains('card-3')) this.style.transform = '';
@@ -209,11 +208,6 @@
                     if (circleRing) circleRing.style.transform = '';
                 }, 200);
             }
-        });
-        
-        // Efeito de brilho adicional ao passar o mouse
-        card.addEventListener('mouseenter', function() {
-            this.style.transition = 'all 0.2s ease';
         });
     });
     
