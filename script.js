@@ -21,32 +21,44 @@
                 cards.forEach(c => {
                     if (c !== card && c.classList.contains('touch-active')) {
                         c.classList.remove('touch-active');
+                        // Reset do conteúdo
                         const content = c.querySelector('.card-content');
                         if (content) {
                             content.style.opacity = '';
                             content.style.transform = '';
                         }
+                        // Reset do ícone
+                        const icon = c.querySelector('.card-icon');
+                        if (icon) {
+                            icon.style.opacity = '';
+                            icon.style.fontSize = '';
+                            icon.style.transform = '';
+                        }
                         // Reset da posição
                         if (c.classList.contains('card-1')) c.style.transform = '';
                         else if (c.classList.contains('card-2')) c.style.transform = '';
                         else if (c.classList.contains('card-3')) c.style.transform = '';
+                        c.style.zIndex = '';
+                        c.style.boxShadow = '';
                     }
                 });
                 
                 // Ativa o card tocado
                 card.classList.add('touch-active');
                 
-                // Aplica o efeito de levantar via estilo inline
+                // Aplica o efeito de levantar
                 card.style.transform = `translateY(-25px) translateZ(20px) rotateX(0deg) scale(1.02)`;
                 card.style.zIndex = '20';
                 card.style.boxShadow = '0 30px 40px -15px rgba(0,0,0,0.6), 0 0 0 2px rgba(255, 180, 50, 0.5) inset';
                 
+                // Mostra o conteúdo
                 const content = card.querySelector('.card-content');
                 if (content) {
                     content.style.opacity = '1';
                     content.style.transform = 'translateY(0)';
                 }
                 
+                // Esconde o ícone
                 const icon = card.querySelector('.card-icon');
                 if (icon) {
                     icon.style.opacity = '0.2';
@@ -58,7 +70,7 @@
                 const timeout = setTimeout(() => {
                     card.classList.remove('touch-active');
                     
-                    // Restaura a posição original baseada na classe
+                    // Restaura a posição original
                     if (card.classList.contains('card-1')) card.style.transform = '';
                     else if (card.classList.contains('card-2')) card.style.transform = '';
                     else if (card.classList.contains('card-3')) card.style.transform = '';
@@ -177,7 +189,7 @@
         });
     }
     
-    // Clique nas cartas
+    // Clique nas cartas - feedback
     cards.forEach(card => {
         card.addEventListener('click', function(e) {
             const bookTitle = this.querySelector('.book-title')?.innerText || 'Livro';
